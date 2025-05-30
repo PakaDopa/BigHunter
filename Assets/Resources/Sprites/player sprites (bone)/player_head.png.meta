@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b95415027d270ad4fbbbbe5c45ea00e1
+guid: a3820d28ee87f9a48a00558b6a2baff9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6209142218787029550
-    second: parallax_first_0
+      213: 7703799681169377718
+    second: player_head_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: parallax_first_0
+      name: player_head_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1320
-        height: 88
+        x: 47
+        y: 87
+        width: 31
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2dd7159ac02b4d9a0800000000000000
-      internalID: -6209142218787029550
+      spriteID: 6b94ed85ef469ea60800000000000000
+      internalID: 7703799681169377718
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      parallax_first_0: -6209142218787029550
+      player_head_0: 7703799681169377718
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
