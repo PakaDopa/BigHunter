@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM : MonoBehaviour
+public class FSM<TEnum, TOwner> : MonoBehaviour
 {
-    StateMachine sm;
+    protected Dictionary<TEnum, IState<TOwner>> dicState = new();
+    protected StateMachine<TOwner> sm;
 }

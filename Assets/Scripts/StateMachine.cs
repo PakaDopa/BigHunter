@@ -1,36 +1,29 @@
-using System.Collections.Generic;
-
-public class StateMachine<TEnum, TOwner>
+public class StateMachine<TOwner>
 {
-    private Dictionary<TEnum, IState<TEnum, TOwner>> states = new();
-    private IState<TEnum, TOwner> currentState;
-    private TOwner owner;
+    private TOwner m_sender;
 
-    public TEnum CurrentStateType => currentState.StateType;
+    public IState<TOwner> CurState { get; set; }
 
-    public StateMachine(TOwner owner)
+    public StateMachine(TOwner sender, IState<TOwner> state)
     {
-        this.owner = owner;
+        m_sender = sender;
+        SetState(state);
     }
 
-    public void AddState(IState<TEnum, TOwner> state)
+    public void SetState(IState<TOwner> state)
     {
-        if (!states.ContainsKey(state.StateType))
-            states.Add(state.StateType, state);
+        if (m_sender == null)
+            return;
+        if (CurState == state)
+            return;
+
+        CurState?.OperateExit(m_sender);
+        CurState = state;
+        CurState?.OperateEnter(m_sender);
     }
 
-    public void ChangeState(TEnum newStateType)
+    public void DoOperateUpdate()
     {
-        if(states.TryGetValue(newStateType, out var newState))
-        {
-            currentState?.StateExit(owner);
-            currentState = newState;
-            currentState.StateEnter(owner);
-        }
-    }
-
-    public void Update()
-    {
-        currentState?.StateUpdate(owner);
+        CurState?.OperateUpdate(m_sender);
     }
 }
