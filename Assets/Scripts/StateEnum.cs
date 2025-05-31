@@ -11,5 +11,7 @@ public enum EnemyStateType
 {
     Idle = 0,
     Move,
+    Attack,
+    Attack_Second,
     Dead,
 }
