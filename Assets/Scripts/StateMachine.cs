@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public class StateMachine<TOwner>
 {
     private TOwner m_sender;

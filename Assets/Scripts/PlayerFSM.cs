@@ -1,10 +1,13 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerFSM : FSM<PlayerStateType, PlayerFSM>
 {
-    public float moveSpeed = 0.25f;
+    [SerializeField] private ObjectPooler weaponPooler;
+    [SerializeField] private Transform handTransform;
+    public ObjectPooler WeaponPooler { get { return weaponPooler; } }
+    public Transform HandTransform { get { return handTransform; } }
 
+    public float moveSpeed = 0.25f;
     private void Start()
     {
 
@@ -18,7 +21,7 @@ public class PlayerFSM : FSM<PlayerStateType, PlayerFSM>
         dicState.Add(PlayerStateType.Attack_Ready, attackReady);
         dicState.Add(PlayerStateType.Attack, attack);
 
-        //»óÅÂ Ãß°¡
+        // ê¸°ë³¸ ìƒíƒœ ì…‹íŒ…
         sm = new StateMachine<PlayerFSM>(this, dicState[PlayerStateType.Idle]);
     }
     private void Update()

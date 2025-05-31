@@ -11,18 +11,27 @@ public class AttackState : MonoBehaviour, IState<PlayerFSM>
         animator.SetBool("isWalk", false);
         animator.SetBool("isAttack", false);
         animator.SetBool("isAttackSignal", true);
+
+        WeaponBehavoiur weapon = sender.HandTransform.GetComponentInChildren<WeaponBehavoiur>();
+        weapon.ThrowWeapon(30f);
+        weapon.isAttackReady = false;
+        weapon.isAttacking = true;
+
+
+        Debug.Log("PlayerFSM, Attack OpeatorEnter");
     }
 
     public void OperateExit(PlayerFSM sender)
     {
         animator = null;
+        Debug.Log("PlayerFSM, Attack OpeatorExit");
     }
 
     public void OperateUpdate(PlayerFSM sender)
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0); // 0 = Base Layer
 
-        // ÇöÀç Àç»ý ÁßÀÎ Å¬¸³ÀÌ ³¡³µ´ÂÁö È®ÀÎ (1.0 ÀÌ»óÀÌ¸é ¿Ï·áµÊ)
+        // ì• ë‹ˆë©”ì´ì…˜ ë -> Idle ëª¨ë“œë¡œ
         if (stateInfo.normalizedTime >= 1f && stateInfo.IsName("player_attack"))
         {
             sender.ChangeState(PlayerStateType.Idle);

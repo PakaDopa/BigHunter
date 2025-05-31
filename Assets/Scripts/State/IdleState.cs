@@ -11,11 +11,19 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
         animator.SetBool("isWalk", false);
         animator.SetBool("isAttack", false);
         animator.SetBool("isAttackSignal", false);
-    }
 
+        if(sender.HandTransform.GetComponentInChildren<WeaponBehavoiur>() == null)
+        {
+            var weapon = sender.WeaponPooler.Rent();
+            weapon.GetComponent<WeaponBehavoiur>().Setup(sender, Input.mousePosition);
+        }
+
+        Debug.Log("PlayerFSM, Idle OpeatorEnter");
+    }
     public void OperateExit(PlayerFSM sender)
     {
         animator = null;
+        Debug.Log("PlayerFSM, Idle OpeatorExit");
     }
 
     public void OperateUpdate(PlayerFSM sender)
@@ -24,15 +32,14 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
         if (Input.GetMouseButton(0))
         {
             var player = InputManager.Instance.GetObjectMouseClick(LayerMask.GetMask("Player"));
-            // player°¡ ¾Æ´Ñ °ÍÀ» Å¬¸¯ÇßÀ» ¶§
+            // í”Œë ˆì´ì–´ ì´ì™¸ë¥¼ í´ë¦­í–ˆì„ ë•Œ => ì›€ì§ìž„
             if (player == null)
             {
                 sender.ChangeState(PlayerStateType.Move);
             }
-            // Å¬¸¯ÇÑ °ÍÀÌ playerÀÏ ¶§
+            // í”Œë ˆì´ì–´ë¥¼ í´ë¦­í–ˆì„ ë•Œ => ì¡°ì¤€ ëª¨ì…˜
             else
             {
-                Debug.Log("[Log] Attack Ready Enter!");
                 sender.ChangeState(PlayerStateType.Attack_Ready);
             }
         }
