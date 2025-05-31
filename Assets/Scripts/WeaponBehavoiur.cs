@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class WeaponBehavoiur : MonoBehaviour
 {
     private Vector3 originPosition;
@@ -30,6 +31,7 @@ public class WeaponBehavoiur : MonoBehaviour
         //default setting
         this.parent = parent;
         handTransform = transform.parent;
+        transform.position = new(transform.position.x, transform.position.y, -1);
         originPosition = transform.position;
 
         //setting angle & position
@@ -55,8 +57,11 @@ public class WeaponBehavoiur : MonoBehaviour
             }
         }
     }
-    public void ThrowWeapon(float force)
+    public void ThrowWeapon()
     {
+        //궤적 보기 끄기
+        parent.TrajectoryRenderer.HideTrajectory();
+
         //던져진 순간 오브젝트 풀러 parent로 이동!
         Transform pollStorage = parent.WeaponPooler.ParentTransform;
         transform.parent = pollStorage;
@@ -90,5 +95,9 @@ public class WeaponBehavoiur : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, -currentAngle);
         
         dragStartPos = currentPos; // 다음 프레임 대비 갱신
+
+        //투사체 궤적 표시
+        Vector2 throwDirection = transform.right.normalized; // local X+ 방향
+        parent.TrajectoryRenderer.ShowTrajectory(throwDirection * currentForce, rb.gravityScale);
     }
 }

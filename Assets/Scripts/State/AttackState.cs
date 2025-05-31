@@ -13,7 +13,7 @@ public class AttackState : MonoBehaviour, IState<PlayerFSM>
         animator.SetBool("isAttackSignal", true);
 
         WeaponBehavoiur weapon = sender.HandTransform.GetComponentInChildren<WeaponBehavoiur>();
-        weapon.ThrowWeapon(30f);
+        weapon.ThrowWeapon();
         weapon.isAttackReady = false;
         weapon.isAttacking = true;
 

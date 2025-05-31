@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 948947145762768772}
   - component: {fileID: 5598131390033393592}
   - component: {fileID: 9178476032109737790}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: '[Prefab] Weapon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

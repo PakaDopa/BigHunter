@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerFSM : FSM<PlayerStateType, PlayerFSM>
 {
+    [Header("공격 관련 컴포넌트")]
     [SerializeField] private ObjectPooler weaponPooler;
     [SerializeField] private Transform handTransform;
+    [SerializeField] private TrajectoryHehaviour trajectoryRenderer;
+
     public ObjectPooler WeaponPooler { get { return weaponPooler; } }
     public Transform HandTransform { get { return handTransform; } }
+    public TrajectoryHehaviour TrajectoryRenderer { get { return trajectoryRenderer; } }
 
     public float moveSpeed = 0.25f;
     private void Start()
