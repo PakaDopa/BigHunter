@@ -36,6 +36,5 @@ public class ObjectPooler : MonoBehaviour
 
         obj.transform.SetPositionAndRotation(spawnTransform.transform.position, Quaternion.identity);
         return obj;
-
     }
 }

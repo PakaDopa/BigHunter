@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class EnemyMoveState : MonoBehaviour, IState<EnemyFSM>
+public class EnemyDeadState : MonoBehaviour, IState<EnemyFSM>
 {
+    Animator animator;
     public void OperateEnter(EnemyFSM sender)
     {
+        animator = GetComponent<Animator>();
+        animator.Play("monster_dead");
     }
 
     public void OperateExit(EnemyFSM sender)

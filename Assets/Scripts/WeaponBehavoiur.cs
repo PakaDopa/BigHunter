@@ -21,6 +21,10 @@ public class WeaponBehavoiur : MonoBehaviour
     [SerializeField] private float angleSensitivity = 0.2f;
     [SerializeField] private float forceSensitivity = 0.1f;
 
+    [SerializeField] private float bounceForce = 1f;
+    [SerializeField] private int criticalDamage = 45;
+    [SerializeField] private int normalDamage = 30;
+
     Vector2 dragStartPos;
     public float currentAngle, currentForce;
 
@@ -46,7 +50,7 @@ public class WeaponBehavoiur : MonoBehaviour
             else
                 UpdateRotationMouseAngle();
         }
-        else
+        else //창이 날라가고 있는 중
         {
             Vector2 velocity = rb.linearVelocity;
 
@@ -99,5 +103,50 @@ public class WeaponBehavoiur : MonoBehaviour
         //투사체 궤적 표시
         Vector2 throwDirection = transform.right.normalized; // local X+ 방향
         parent.TrajectoryRenderer.ShowTrajectory(throwDirection * currentForce, rb.gravityScale);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        string hitLayer = LayerMask.LayerToName(collision.gameObject.layer);
+        Vector2 hitDirection = rb.linearVelocity.normalized;
+
+        switch (hitLayer)
+        {
+            case "Shield":
+                // 튕겨나가기 (반사 방향 = 반사 벡터)
+                Vector2 reflectDir = Vector2.Reflect(hitDirection, collision.contacts[0].normal);
+                rb.linearVelocity = reflectDir * bounceForce; // bounceForce는 적당한 값 설정
+                break;
+
+            case "Head":
+                StickToTarget(collision); // 박히는 처리
+                ApplyDamage(critical: true);
+                break;
+
+            case "Body":
+                StickToTarget(collision); // 박히는 처리
+                ApplyDamage(critical: false);
+                break;
+
+            default:
+                // 무효한 충돌
+                break;
+        }
+    }
+    //데미지를 입힘
+    private void ApplyDamage(bool critical)
+    {
+        int damage = critical ? criticalDamage : normalDamage;
+        EventManager.Instance.PostNotification(MEventType.ApplyDamage, this, new TransformEventArgs(transform, damage, critical, transform.position));
+        // 이펙트/사운드 등도 여기에
+    }
+    //창이 박히게
+    void StickToTarget(Collision2D collision)
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false; // 시뮬레이션 멈춤
+
+        // 투사체를 충돌 지점에 고정
+        transform.SetParent(collision.transform);
     }
 }

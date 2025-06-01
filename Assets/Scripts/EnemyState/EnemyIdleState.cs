@@ -4,6 +4,7 @@ public class EnemyIdleState : MonoBehaviour, IState<EnemyFSM>
 {
     public void OperateEnter(EnemyFSM sender)
     {
+        Animator animator = sender.GetComponent<Animator>();
     }
 
     public void OperateExit(EnemyFSM sender)
@@ -12,5 +13,9 @@ public class EnemyIdleState : MonoBehaviour, IState<EnemyFSM>
 
     public void OperateUpdate(EnemyFSM sender)
     {
+        if(sender.PlayerTransform != null && GameManager.Instance.isInGameEnd == false)
+        {
+            sender.ChangeState(EnemyStateType.Move);
+        }
     }
 }

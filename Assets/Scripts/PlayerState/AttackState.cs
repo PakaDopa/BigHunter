@@ -8,23 +8,18 @@ public class AttackState : MonoBehaviour, IState<PlayerFSM>
     {
         animator = sender.GetComponent<Animator>();
 
-        animator.SetBool("isWalk", false);
-        animator.SetBool("isAttack", false);
         animator.SetBool("isAttackSignal", true);
 
         WeaponBehavoiur weapon = sender.HandTransform.GetComponentInChildren<WeaponBehavoiur>();
         weapon.ThrowWeapon();
         weapon.isAttackReady = false;
         weapon.isAttacking = true;
-
-
-        Debug.Log("PlayerFSM, Attack OpeatorEnter");
     }
 
     public void OperateExit(PlayerFSM sender)
     {
+        animator.SetBool("isAttackSignal", false);
         animator = null;
-        Debug.Log("PlayerFSM, Attack OpeatorExit");
     }
 
     public void OperateUpdate(PlayerFSM sender)

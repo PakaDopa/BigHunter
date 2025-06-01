@@ -21,7 +21,7 @@ public class DebugHelper : MonoBehaviour
             string text = "";
             if(weapon != null)
             {
-                text = "thron force: " + weapon.currentForce.ToString();
+                text = "throw force: " + weapon.currentForce.ToString();
             }
 
             throwForceText.text = text;

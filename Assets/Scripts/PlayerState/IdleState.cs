@@ -17,13 +17,10 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
             var weapon = sender.WeaponPooler.Rent();
             weapon.GetComponent<WeaponBehavoiur>().Setup(sender, Input.mousePosition);
         }
-
-        Debug.Log("PlayerFSM, Idle OpeatorEnter");
     }
     public void OperateExit(PlayerFSM sender)
     {
         animator = null;
-        Debug.Log("PlayerFSM, Idle OpeatorExit");
     }
 
     public void OperateUpdate(PlayerFSM sender)

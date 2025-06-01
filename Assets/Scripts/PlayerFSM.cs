@@ -19,11 +19,13 @@ public class PlayerFSM : FSM<PlayerStateType, PlayerFSM>
         IState<PlayerFSM> move = gameObject.AddComponent<MoveState>();
         IState<PlayerFSM> attackReady = gameObject.AddComponent<AttackReadyState>();
         IState<PlayerFSM> attack = gameObject.AddComponent<AttackState>();
+        IState<PlayerFSM> dead = gameObject.AddComponent<DeadState>();
 
         dicState.Add(PlayerStateType.Idle, idle);
         dicState.Add(PlayerStateType.Move, move);
         dicState.Add(PlayerStateType.Attack_Ready, attackReady);
         dicState.Add(PlayerStateType.Attack, attack);
+        dicState.Add(PlayerStateType.Dead, dead);
 
         // 기본 상태 셋팅
         sm = new StateMachine<PlayerFSM>(this, dicState[PlayerStateType.Idle]);

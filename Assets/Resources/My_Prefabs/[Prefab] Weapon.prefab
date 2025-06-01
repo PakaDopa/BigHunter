@@ -112,6 +112,9 @@ MonoBehaviour:
   maxForce: 40
   angleSensitivity: 0.2
   forceSensitivity: 0.1
+  bounceForce: 1
+  criticalDamage: 45
+  normalDamage: 30
   currentAngle: 0
   currentForce: 0
 --- !u!50 &5598131390033393592
@@ -175,7 +178,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.16958943, y: 0.00094212126}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -185,5 +188,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.07037336, y: 0.049645834}
   m_EdgeRadius: 0

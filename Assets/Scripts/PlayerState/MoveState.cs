@@ -10,12 +10,11 @@ public class MoveState : MonoBehaviour, IState<PlayerFSM>
         animator = sender.GetComponent<Animator>();
 
         animator.SetBool("isWalk", true);
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isAttackSignal", false);
     }
 
     public void OperateExit(PlayerFSM sender)
     {
+        animator.SetBool("isWalk", false);
         animator = null;
     }
 
