@@ -1,13 +1,12 @@
 using System;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class UI_ShowDamage : MonoBehaviour
 {
     [SerializeField] TMP_Text damagePrefab;
 
-    private void Awake()
+    private void Start()
     {
         EventManager.Instance.AddListener(MEventType.ApplyDamage, ShowDamage);
     }

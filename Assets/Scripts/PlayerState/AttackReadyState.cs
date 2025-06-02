@@ -25,12 +25,11 @@ public class AttackReadyState : MonoBehaviour, IState<PlayerFSM>
 
     public void OperateUpdate(PlayerFSM sender)
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButton(0) == false)
         {
             sender.ChangeState(PlayerStateType.Attack);
         }
-#elif UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
 #endif
     }
 }

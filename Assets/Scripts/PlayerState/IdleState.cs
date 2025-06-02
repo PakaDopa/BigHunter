@@ -25,7 +25,6 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
 
     public void OperateUpdate(PlayerFSM sender)
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
         if(Input.GetKey(KeyCode.Space))
         {
             sender.ChangeState(PlayerStateType.Move);
@@ -48,7 +47,7 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
         //        sender.ChangeState(PlayerStateType.Attack_Ready);
         //    }
         //}
-#elif UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
         
 #endif
     }
