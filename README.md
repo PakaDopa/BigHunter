@@ -23,6 +23,7 @@
 - [itch.io](https://pakadopa.itch.io/smallhunter-demo)
 
 플레이 방법: space - 뒤로 이동, 마우스 좌클릭 - 조준
+**공략법) 방패를 들어올릴 때 거리를 벌리고, 투창을 하면 쉽게 클리어 가능합니다 :>**
 
 ### 시연 영상
 [![ProtoHunter 시연 영상](https://img.youtube.com/vi/dboh5aAAP3Q/0.jpg)](https://youtu.be/dboh5aAAP3Q)
