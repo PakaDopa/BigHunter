@@ -28,7 +28,7 @@ public class EnemyAttackSecondState : MonoBehaviour, IState<EnemyFSM>
 
         // 애니메이션 끝 -> Idle 모드로
         if ((stateInfo.normalizedTime >= 1f && stateInfo.IsName("monster_attack_second_first")) || 
-            GameManager.Instance.isInGameEnd == true)
+            GameManager.Instance.IsInGameEnd == true)
         {
             sender.ChangeState(EnemyStateType.Idle);
         }

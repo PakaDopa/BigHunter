@@ -10,21 +10,24 @@ public class DebugHelper : MonoBehaviour
 
     private void Update()
     {
-        Debug_ThrowForceText();
+        string text = "";
+        text += Debug_ThrowForceText() + "\n";
+        text += Debug_IsInGame();
+        throwForceText.text = text;
     }
-
-    private void Debug_ThrowForceText()
+    private string Debug_IsInGame()
     {
+        return "Game End? -> " + GameManager.Instance.IsInGameEnd.ToString();
+    }
+    private string Debug_ThrowForceText()
+    {
+        string text = "";
         if(parent != null)
         {
             var weapon = parent.GetComponentInChildren<WeaponBehavoiur>();
-            string text = "";
             if(weapon != null)
-            {
-                text = "throw force: " + weapon.currentForce.ToString();
-            }
-
-            throwForceText.text = text;
+                text += "throw force: " + weapon.currentForce.ToString();
         }
+        return text;
     }
 }

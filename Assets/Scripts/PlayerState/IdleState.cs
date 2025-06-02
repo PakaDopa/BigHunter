@@ -26,20 +26,28 @@ public class IdleState : MonoBehaviour, IState<PlayerFSM>
     public void OperateUpdate(PlayerFSM sender)
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButton(0))
+        if(Input.GetKey(KeyCode.Space))
         {
-            var player = InputManager.Instance.GetObjectMouseClick(LayerMask.GetMask("Player"));
-            // 플레이어 이외를 클릭했을 때 => 움직임
-            if (player == null)
-            {
-                sender.ChangeState(PlayerStateType.Move);
-            }
-            // 플레이어를 클릭했을 때 => 조준 모션
-            else
-            {
-                sender.ChangeState(PlayerStateType.Attack_Ready);
-            }
+            sender.ChangeState(PlayerStateType.Move);
         }
+        else if(Input.GetMouseButton(0))
+        {
+            sender.ChangeState(PlayerStateType.Attack_Ready);
+        }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    var player = InputManager.Instance.GetObjectMouseClick(LayerMask.GetMask("Player"));
+        //    // 플레이어 이외를 클릭했을 때 => 움직임
+        //    if (player == null)
+        //    {
+        //        sender.ChangeState(PlayerStateType.Move);
+        //    }
+        //    // 플레이어를 클릭했을 때 => 조준 모션
+        //    else
+        //    {
+        //        sender.ChangeState(PlayerStateType.Attack_Ready);
+        //    }
+        //}
 #elif UNITY_ANDROID || UNITY_IOS
         
 #endif

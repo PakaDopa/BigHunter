@@ -1,10 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool isInGameEnd = false;
-
-
+    private bool isInGameEnd = false;
+    public bool IsInGameEnd { get { return isInGameEnd; } }
     public void GameEnd()
     {
         Time.timeScale = 1f;
@@ -18,7 +18,12 @@ public class GameManager : Singleton<GameManager>
         EventManager.Instance.PostNotification(MEventType.GameEnd, this, new TransformEventArgs(transform, true));
         
     }
+    public void GameRetry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     public override void Init()
     {
+        isInGameEnd = false;
     }
 }

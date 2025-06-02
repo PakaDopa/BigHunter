@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMoveState : MonoBehaviour, IState<EnemyFSM>
 {
     Animator animator;
+    float ratio;
     public void OperateEnter(EnemyFSM sender)
     {
         animator = sender.GetComponent<Animator>();
@@ -23,6 +24,15 @@ public class EnemyMoveState : MonoBehaviour, IState<EnemyFSM>
         // 공격 범위 안이 아니면 이동
         if (distance > sender.attackRange)
         {
+            ratio = (sender.maxHp - sender.hp) / sender.maxHp; //받은 데미지 계산
+            float chance = Mathf.Lerp(0.001f, 0.05f, ratio);
+            if (Random.value < chance)
+            {
+                Debug.Log("방패를 들어올립니다!");
+                sender.ChangeState(EnemyStateType.Attack); //방패를 들어올리는 패턴
+                return;
+            }
+
             // 거리를 0~1 범위로 정규화 (멀면 1, 가까우면 0)
             float t = Mathf.Clamp01(distance / 15);
 

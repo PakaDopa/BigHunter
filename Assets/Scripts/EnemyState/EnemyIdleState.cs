@@ -13,7 +13,7 @@ public class EnemyIdleState : MonoBehaviour, IState<EnemyFSM>
 
     public void OperateUpdate(EnemyFSM sender)
     {
-        if(sender.PlayerTransform != null && GameManager.Instance.isInGameEnd == false)
+        if(sender.PlayerTransform != null && GameManager.Instance.IsInGameEnd == false)
         {
             sender.ChangeState(EnemyStateType.Move);
         }

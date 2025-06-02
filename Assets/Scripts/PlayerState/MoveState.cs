@@ -21,7 +21,7 @@ public class MoveState : MonoBehaviour, IState<PlayerFSM>
     public void OperateUpdate(PlayerFSM sender)
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButton(0) == false)
+        if (Input.GetKey(KeyCode.Space) == false)
         {
             sender.ChangeState(PlayerStateType.Idle);
         }

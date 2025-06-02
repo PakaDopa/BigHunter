@@ -59,7 +59,10 @@ public class EventManager : Singleton<EventManager>
             ListenList[i](MEventType, Sender, args);
         }
     }
-
+    public void RemoveAllListener()
+    {
+        Listeners.Clear();
+    }
     public void RemoveListener(MEventType MEventType, object target)
     {
         if (Listeners.ContainsKey(MEventType) == false)
@@ -102,6 +105,6 @@ public class EventManager : Singleton<EventManager>
 
     public override void Init()
     {
-        Debug.Log("EventManager Init Complete!");
+        RemoveAllListener(); 
     }
 }

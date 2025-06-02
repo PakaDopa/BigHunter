@@ -18,6 +18,10 @@ public class EnemyFSM : FSM<EnemyStateType, EnemyFSM>
     [Header("Attack Setting")]
     [SerializeField] Collider2D shieldCollider;
     [SerializeField] ContactFilter2D contactFilter;
+
+    [Header("Pattern Setting")]
+    [SerializeField] private int headshootCount = 0; // 약점 맞은 카운트
+
     public Collider2D ShieldCollider {  get { return shieldCollider; } }
     public ContactFilter2D ContactFilter {  get { return contactFilter; } }
 
