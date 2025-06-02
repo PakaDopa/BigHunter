@@ -20,7 +20,9 @@
 ## 🎮 Version 1.0.0 - prototype
 ** !PC환경에서 테스트 해보실 수 있습니다. (UI 등 해상도는 모바일에 대응했습니다.)
 ### 실행 파일
-- [google drive](https://drive.google.com/file/d/1Sar4tWTFjnBMdavdDWCvuu8Q3j9d3s_9/view?usp=drive_link)
+- [itch.io](https://pakadopa.itch.io/smallhunter-demo)
+
+플레이 방법: space - 뒤로 이동, 마우스 좌클릭 - 조준
 
 ### 시연 영상
 [![ProtoHunter 시연 영상](https://img.youtube.com/vi/dboh5aAAP3Q/0.jpg)](https://youtu.be/dboh5aAAP3Q)
