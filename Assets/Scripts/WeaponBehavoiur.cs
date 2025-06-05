@@ -169,10 +169,9 @@ public class WeaponBehavoiur : MonoBehaviour
         int damage = critical ? criticalDamage : normalDamage;
         damage += GetCombo();
         EventManager.Instance.PostNotification(MEventType.ApplyDamage, this, new TransformEventArgs(transform, damage, critical, parent.combo, transform.position));
-        // 이펙트/사운드 등도 여기에
     }
     //창이 박히게
-    void StickToTarget(Collision2D collision)
+    void StickToTarget(Collision2D collision) 
     {
         //히트 이펙트
         var obj = Instantiate(parent.EffectEffectPrefab);

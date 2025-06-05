@@ -18,7 +18,10 @@ public enum MEventType
     GameEnd,
 
     //Enemy
-    ApplyDamage,
+    ApplyDamage,//데미지 입힐 때,
+
+    //Game
+    Shoot,      //화살 쏠 때
 }
 public class EventManager : Singleton<EventManager>
 {

@@ -14,6 +14,8 @@ public class AttackState : MonoBehaviour, IState<PlayerFSM>
         weapon.ThrowWeapon();
         weapon.isAttackReady = false;
         weapon.isAttacking = true;
+
+        EventManager.Instance.PostNotification(MEventType.Shoot, this, null);
     }
 
     public void OperateExit(PlayerFSM sender)
