@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -41,6 +42,16 @@ public class EnemyAttackSecondState : MonoBehaviour, IState<EnemyFSM>
             // 특정 프레임 구간 (예: 0.3 ~ 0.5)에서만 공격 판정 실행
             if (t > 0.8f && t < 0.95f && !hasAttacked)
             {
+                Sequence seq = DOTween.Sequence();
+                seq.Append(Camera.main.transform.DOShakePosition(
+                    duration: 0.15f,       // 흔들릴 시간
+                    strength: 0.9f,       // 흔들림 강도
+                    vibrato: 20,          // 진동 횟수
+                    randomness: 90f,      // 흔들리는 방향 다양성
+                    snapping: false,
+                    fadeOut: true         // 점점 흔들림 약해지기
+                ));
+
                 int hits = sender.ShieldCollider.Overlap(sender.ContactFilter, result);
                 if(hits > 0)
                 {

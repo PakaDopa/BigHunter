@@ -25,7 +25,7 @@ public class EnemyMoveState : MonoBehaviour, IState<EnemyFSM>
         if (distance > sender.attackRange)
         {
             ratio = (sender.maxHp - sender.hp) / sender.maxHp; //받은 데미지 계산
-            float chance = Mathf.Lerp(0.001f, 0.05f, ratio);
+            float chance = Mathf.Lerp(0.001f, 0.01f, ratio);
             if (Random.value < chance)
             {
                 Debug.Log("방패를 들어올립니다!");

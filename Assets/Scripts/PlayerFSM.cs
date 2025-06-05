@@ -6,12 +6,17 @@ public class PlayerFSM : FSM<PlayerStateType, PlayerFSM>
     [SerializeField] private ObjectPooler weaponPooler;
     [SerializeField] private Transform handTransform;
     [SerializeField] private TrajectoryHehaviour trajectoryRenderer;
+    [SerializeField] private Transform effectEffectPrefab;
+    public Transform EffectEffectPrefab { get { return effectEffectPrefab; } }
 
     public ObjectPooler WeaponPooler { get { return weaponPooler; } }
     public Transform HandTransform { get { return handTransform; } }
     public TrajectoryHehaviour TrajectoryRenderer { get { return trajectoryRenderer; } }
 
     public float moveSpeed = 0.25f;
+
+    public int combo = 0;
+
     private void Start()
     {
 

@@ -1,4 +1,7 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
+using VInspector.Libs;
 
 public class WeaponBehavoiur : MonoBehaviour
 {
@@ -116,6 +119,7 @@ public class WeaponBehavoiur : MonoBehaviour
                 // 튕겨나가기 (반사 방향 = 반사 벡터)
                 Vector2 reflectDir = Vector2.Reflect(hitDirection, collision.contacts[0].normal);
                 rb.linearVelocity = reflectDir * bounceForce; // bounceForce는 적당한 값 설정
+                parent.combo = 0;
                 break;
 
             case "Head":
@@ -129,6 +133,7 @@ public class WeaponBehavoiur : MonoBehaviour
                 break;
 
             default:
+                parent.combo = 0;
                 // 무효한 충돌
                 break;
         }
@@ -136,17 +141,59 @@ public class WeaponBehavoiur : MonoBehaviour
     //데미지를 입힘
     private void ApplyDamage(bool critical)
     {
+        ApplayEffect();
+        parent.combo += 1;
         int damage = critical ? criticalDamage : normalDamage;
-        EventManager.Instance.PostNotification(MEventType.ApplyDamage, this, new TransformEventArgs(transform, damage, critical, transform.position));
+        damage += GetCombo();
+        EventManager.Instance.PostNotification(MEventType.ApplyDamage, this, new TransformEventArgs(transform, damage, critical, parent.combo, transform.position));
         // 이펙트/사운드 등도 여기에
     }
     //창이 박히게
     void StickToTarget(Collision2D collision)
     {
-        rb.linearVelocity = Vector2.zero;
-        rb.simulated = false; // 시뮬레이션 멈춤
+        var obj = Instantiate(parent.EffectEffectPrefab);
+
+        Vector2 direction = rb.linearVelocity.normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // 기본 Z회전이 90도이므로 +90도 보정
+        Quaternion rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+
+        obj.SetPositionAndRotation(rb.transform.position, rotation);
+        Destroy(obj.gameObject, 1.5f);
 
         // 투사체를 충돌 지점에 고정
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false; // 시뮬레이션 멈춤
         transform.SetParent(collision.transform);
+    }
+    private void ApplayEffect()
+    {
+        //카메라 무빙
+        Sequence seq = DOTween.Sequence();
+        seq.Append(Camera.main.transform.DOShakePosition(
+            duration: 0.15f,       // 흔들릴 시간
+            strength: 0.75f,       // 흔들림 강도
+            vibrato: 15,          // 진동 횟수
+            randomness: 90f,      // 흔들리는 방향 다양성
+            snapping: false,
+            fadeOut: true         // 점점 흔들림 약해지기
+        ));
+    }
+    private int GetCombo()
+    {
+        int combo = parent.combo;
+        if (combo <= 1)
+            return 0;
+        if (combo <= 20)
+        {
+            // 점점 증가, 최대 20콤보까지 증가
+            return Mathf.FloorToInt(Mathf.Log(combo + 1) * 7.5f);
+        }
+        else
+        {
+            // 20 이상이면 증가폭을 미미하게 또는 고정
+            return Mathf.FloorToInt(Mathf.Log(21) * 7.5f + (combo - 20) * 0.1f);
+        }
     }
 }
