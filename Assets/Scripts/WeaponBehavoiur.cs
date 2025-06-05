@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using VInspector.Libs;
@@ -16,6 +17,7 @@ public class WeaponBehavoiur : MonoBehaviour
 
     public bool isAttackReady = false;
     public bool isAttacking = false;
+    private bool isCollider = false;
 
     [SerializeField] private float minAngle = -80f;
     [SerializeField] private float maxAngle = 30f;
@@ -53,14 +55,18 @@ public class WeaponBehavoiur : MonoBehaviour
             else
                 UpdateRotationMouseAngle();
         }
-        else //창이 날라가고 있는 중
+        else 
         {
-            Vector2 velocity = rb.linearVelocity;
-
-            if (velocity.sqrMagnitude > 0.01f)
+            //창이 날라가고 있는 중
+            if (isCollider == false)
             {
-                float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                Vector2 velocity = rb.linearVelocity;
+
+                if (velocity.sqrMagnitude > 0.01f)
+                {
+                    float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
             }
         }
     }
@@ -116,10 +122,27 @@ public class WeaponBehavoiur : MonoBehaviour
         switch (hitLayer)
         {
             case "Shield":
-                // 튕겨나가기 (반사 방향 = 반사 벡터)
+                // 반사 방향 계산
                 Vector2 reflectDir = Vector2.Reflect(hitDirection, collision.contacts[0].normal);
-                rb.linearVelocity = reflectDir * bounceForce; // bounceForce는 적당한 값 설정
+                reflectDir.Normalize();
+
+                // 힘을 반사 방향으로 주되, 촉 방향은 유지
+                rb.linearVelocity = reflectDir * bounceForce;
+
+                // 현재 각도 유지하되, 조금씩 돌아가도록 DOTween 사용
+                float targetAngle = Mathf.Atan2(reflectDir.y, reflectDir.x) * Mathf.Rad2Deg;
+
+                // 회전은 순간적으로 바꾸지 않고 부드럽게 전환
+                transform.DORotate(new Vector3(0, 0, targetAngle), 0.3f)
+                         .SetEase(Ease.OutCirc); // 자연스러운 튕김 느낌
+
+                //충돌 끄기
+                GetComponent<Collider2D>().enabled = false;
+
+                //콤보 초기화
                 parent.combo = 0;
+
+                isCollider = true;
                 break;
 
             case "Head":
@@ -151,6 +174,7 @@ public class WeaponBehavoiur : MonoBehaviour
     //창이 박히게
     void StickToTarget(Collision2D collision)
     {
+        //히트 이펙트
         var obj = Instantiate(parent.EffectEffectPrefab);
 
         Vector2 direction = rb.linearVelocity.normalized;
